@@ -1,13 +1,7 @@
 const {describe, expect, test} = require('@jest/globals')
-const { db, app, query, dbSeed, bcrypt } = require('../app')
+const { db, app, query, bcrypt } = require('../app')
 
 describe('All Test Suites', () => {
-    test('Check db seed', async () => {
-        await dbSeed.init(db, res => {
-            expect(res).toBe('SQL seed completed.')
-        })
-    })
-
     test('GET /user', async () => {
         await app.get('/user', async () => {
             await query.get(db, response => {
