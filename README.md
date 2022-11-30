@@ -9,3 +9,7 @@ To use:
         - to run the project
     * npm test
         - to test using jest
+
+# Globally packages I installed
+
+    * nodemon
