@@ -6,7 +6,7 @@ const query = {
                 throw err
             }
 
-            return callback(res)
+            return callback(res.length > 0 ? res : 'No registered user')
         })
     },
 
