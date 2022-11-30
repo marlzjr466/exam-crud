@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
+    "seed": "node ./db/seeding.js",
     "test": "jest --forceExit"
   },
   "keywords": [],
