@@ -1,6 +1,7 @@
 # CRUD NODE JS API plain Javascript
 
 To use:
+
     * npm install
         - to install dependencies
     * npm run seed
@@ -8,7 +9,7 @@ To use:
     * npm start
         - to run the project
     * npm test
-        - to test using jest
+        - to test using @jest/globals
 
 # Globally packages I installed
 
