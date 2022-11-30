@@ -11,7 +11,7 @@ describe('All Test Suites', () => {
     })
 
     test('POST /user', async () => {
-        await app.post('/user', async () => {
+        await app.post('/user', async res => {
             let data = {
                 "firstname": "Dan",
                 "lastname": "Padayao",
@@ -33,13 +33,13 @@ describe('All Test Suites', () => {
                     expect(response).toBe('New user registered')
                 })
             } catch (e) {
-                expect(response).toBe('Error has occur')
+                expect(res).toBe('Error has occur')
             }
         })
     })
 
     test('PUT /user/:id', async () => {
-        await app.put('/user/:id', async (req, res) => {
+        await app.put('/user/:id', async () => {
             let data = {
                 "firstname": "Mario",
                 "lastname": "Langomez Jr",
@@ -52,12 +52,12 @@ describe('All Test Suites', () => {
             }
 
             try {
-                const hashedPassword = await bcrypt.hash(req.body.password, 10)
-                req.body.password = hashedPassword
+                const hashedPassword = await bcrypt.hash(data.password, 10)
+                data.password = hashedPassword
         
                 query.update(db, {
                     id: req.params.id,
-                    user: req.body
+                    user: data
                 }, response => {
                     expect(response).toBe('User info updated')
                 })
@@ -68,7 +68,7 @@ describe('All Test Suites', () => {
     })
 
     test('DELETE /user/:id', async () => {
-        await app.delete('/user/:id', (req, res) => {
+        await app.delete('/user/:id', () => {
             var ids = req.params.id.split(',')
             query.delete(db, {
                 userIDs: ids
@@ -80,20 +80,20 @@ describe('All Test Suites', () => {
     })
 
     test('POST /user/login', async () => {
-        await app.post('/user/login', (req, res) => {
+        await app.post('/user/login', res => {
             let data = {
                 "username": "marlzjr466",
                 "password": "pass123"
             }
 
             query.get(db, async response => {
-                const user = response.find(user => user.username = req.body.username)
+                const user = response.find(user => user.username = data.username)
                 if (user == null || user == undefined) {
                     expect(res).toBe('Cannot find user')
                 }
         
                 try {
-                    if (await bcrypt.compare(req.body.password, user.password)) {
+                    if (await bcrypt.compare(data.password, user.password)) {
                         query.updateStatus(db, {
                             id: user.id
                         }, statusResponse => {
