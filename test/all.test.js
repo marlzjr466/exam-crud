@@ -97,7 +97,7 @@ describe('All Test Suites', () => {
                         query.updateStatus(db, {
                             id: user.id
                         }, statusResponse => {
-                            res.send(statusResponse)
+                            expect(res).toBeDefined()
                         })
                     } else {
                         expect(response).toBe('Incorrect password')
