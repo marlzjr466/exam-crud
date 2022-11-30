@@ -5,19 +5,13 @@ const body_parser = require('body-parser')
 // const cors = require('cors')
 
 const db = require('./db/connection')
-const dbSeed = require('./db/seeding')
 const { query } = require('./db/query')
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
 app.use(body_parser.text({ type: '*/*' }));
 
-db.connect(()=> {
-    // initialize database seeding
-    dbSeed.init(db, res => {
-        // console.log(res)
-    })
-})
+db.connect()
 
 app.get('/user', (req, res) => {
     query.get(db, response => {
@@ -99,6 +93,5 @@ module.exports = {
     query,
     app,
     db,
-    dbSeed,
     bcrypt
 }
